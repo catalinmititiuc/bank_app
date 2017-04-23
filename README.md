@@ -54,7 +54,7 @@ Directorul templates cuprinde 3 pagini html:
 ### Folosirea aplicatiei
 1. Aplicatia poate fi folosita ruland scriptul ```run.sh```
 2. Se poate accesa: ```http://127.0.0.1:5000```
-3. Dupa accesarea link-ului se poate vedea o interfata cu cele 3 operatii ale API-ului:
+3. Dupa accesarea link-ului se poate vedea o interfata cu cele 3 operatii ale API-ului si 2 butoane:
 * Add Transactions:
     forma input: sender: ```integer``` receiver:```integer``` timestamp:```hh:mm DD/MM/YYYY``` sum:```integer```
     ex. ```1``` ```2``` ```14:35 14/09/2016``` ```500```
@@ -69,10 +69,10 @@ Daca campul timestamp este completat gresit sau este introdusa o data incorecta 
     user:```integer``` since:```DD/MM/YYY``` until:```DD/MM/YYY```
     ex. ```3``` ```01/01/2016``` ```20/07/2016```
 
-* Drop DB
+* ```Drop DB```
     Acest buton va goli baza de date.
 
-* Show/Hide All Transactions
+* ```Show/Hide All Transactions```
     Acest buton va afisa/ascunde o lista cu 50 de tranzactii facute.
 
 #### Informatii importante
@@ -82,7 +82,7 @@ Am ales sa folosesc pentru timestamp formatul ```hh:mm DD/MM/YYYY```, iar pentru
 ### Bonus
 Am folosit indexes pentru interogari, insa nu am reusit sa testez eficienta lor, ```.explain()['executionStats']``` nu intorcea campurile relevante.
 
-Am un script de testare ```test.sh``` care incarca in baza de date 100 de tranzactii si face 3 GET-uri pentru lista de tranzactii si 3 GET-uri pentru balance. Scriptul va salva fisierele html in locatia scriptului.
+Am un script de testare ```test.sh``` care incarca in baza de date 50 de tranzactii si face 3 GET-uri pentru lista de tranzactii si 3 GET-uri pentru balance. Scriptul va salva fisierele html in locatia scriptului.
 
 ***Formatul unui POST catre server:***
 
