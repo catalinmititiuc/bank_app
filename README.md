@@ -2,14 +2,14 @@
 
 ## Hootsuite Backend Internship
 
-Tehnologiile folosite pentru dezvoltarea aplicatiei sunt:<return>
-	* Python 2.7.12<return>
-	* Flask 0.12.1<return>
-	* pymongo 3.4.3<return>
-	* Jinja2 2.9.6<return>
-	* Docker 17.04.0-ce<return>
-	* docker-compose 1.11.2<return>
-	* HTML, CSS, JS<return>
+Tehnologiile folosite pentru dezvoltarea aplicatiei sunt:
+	⋅⋅* Python 2.7.12
+	⋅⋅* Flask 0.12.1
+	⋅⋅* pymongo 3.4.3
+	⋅⋅* Jinja2 2.9.6
+	⋅⋅* Docker 17.04.0-ce
+	⋅⋅* docker-compose 1.11.2
+	⋅⋅* HTML, CSS, JS
 
 Flask este un framework de python pentru crearea de aplicatii web. Are definite cate o ruta pentru fiecare entry point al aplicatiei:
 	* route('/'): metoda asociata main_page() care cauta in baza de date primele 50 de inserari si dupa ce face conversia timestamp-ului din secunde intr-o data ce poate fi inteleasa de forma hh:mm DD/MM/YYYY afiseaza aceste inserari, afisarea poate fi controlata Show/Hide prin apasarea butonului "Show/Hide All Transactions"
