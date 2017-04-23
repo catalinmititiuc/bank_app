@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Web Server</title>
+
+	<link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+
+	<style>
+		table {
+			font-family: arial, sans-serif;
+			border-collapse: collapse;
+			width: 100%;
+		}
+
+		td, th {
+			border: 1px solid #dddddd;
+			text-align: left;
+			padding: 8px;
+		}
+
+		tr:nth-child(even) {
+			background-color: #dddddd;
+		}
+
+		.glow { background-color:pink }
+	</style>
+
+	<script>
+
+		function verifyMonth(year, month, day) {
+			if (month == 4 || month == 6 || month == 9 || month == 11) {
+				if (day == 31) return false;
+			}
+
+			if (year % 4 == 0 && month == 2 && day > 29) {
+				return false;
+			}
+
+			if (year % 4 != 0 && month == 2 && day > 28) {
+				return false;
+			}
+
+			return true;
+		}
+
+		function isValidDate(str_date) {
+			if (str_date == "") return true;
+			var isPattern = /^[0-2][0-9]:[0-5][0-9] [0-3][0-9]\/[0-1][0-9]\/20[0-9][0-9]$/.test(str_date);
+			if (!isPattern) return false;
+
+			var date_split = str_date.split('/');
+			var year = parseInt(date_split[2]);
+			var month = parseInt(date_split[1]);
+			var day = parseInt(date_split[0].split(' ')[1]);
+			var hour = parseInt(date_split[0].split(' ')[0].split(':')[0]);
+			var mins = parseInt(date_split[0].split(' ')[0].split(':')[1]);
+
+			if (hour >= 24) return false;
+			if (day > 31 || day == 0) return false;
+			if (month > 12 || month == 0) return false;
+			if (!verifyMonth(year, month, day)) return false;
+
+			return true;
+		}
+
+		function isValidSimpleDate(str_date) {
+			if (str_date == "") return true;
+			var isPattern = /^[0-3][0-9]\/[0-1][0-9]\/20[0-9][0-9]$/.test(str_date);
+			if (!isPattern) return false;
+
+			var date_split = str_date.split('/');
+			var year = parseInt(date_split[2]);
+			var month = parseInt(date_split[1]);
+			var day = parseInt(date_split[0]);
+
+			if (day > 31 || day == 0) return false;
+			if (month > 12 || month == 0) return false;
+			if (!verifyMonth(year, month, day)) return false;
+
+			return true;
+		}
+
+		window.onload=function() {
+			document.querySelector("input[name=timestamp]").onkeyup=function() {
+				var val = this.value;
+				this.className = isValidDate(val)?"":"glow"
+			}
+			document.querySelector("input[name=day]").onkeyup=function() {
+				var val = this.value;
+				this.className = isValidSimpleDate(val)?"":"glow"
+			}
+			document.querySelector("input[name=since]").onkeyup=function() {
+				var val = this.value;
+				this.className = isValidSimpleDate(val)?"":"glow"
+			}
+			document.querySelector("input[name=until]").onkeyup=function() {
+				var val = this.value;
+				this.className = isValidSimpleDate(val)?"":"glow"
+			}
+		}
+
+		function validateAddTransitionForm() {
+			var x = document.forms["add_transaction"]["timestamp"].value;
+			if (!isValidDate(x)) {
+				alert("Timestamp format: hh:mm DD/MM/YYYY");
+				return false;
+			}
+		}
+
+		function validateListTransitionForm() {
+			var x = document.forms["list_transactions"]["day"].value;
+			if (!isValidSimpleDate(x)) {
+				alert("Day format: DD/MM/YYYY");
+				return false;
+			}
+		}
+
+		function validateBalanceForm() {
+			var x = document.forms["balance_user"]["since"].value;
+			var y = document.forms["balance_user"]["until"].value;
+			if (!isValidSimpleDate(x) || !isValidSimpleDate(y)) {
+				alert("Day format: DD/MM/YYYY");
+				return false;
+			}
+		}
+
+	</script>
+
+</head>
+
+<body>
+
+	<div class="jumbotron">
+		<div class="header">
+			<h3 class="text-muted">Python Flask App</h3>
+		</div>
+
+		<div>
+			<h1><a href="/">Server API</a></h1>
+			<p class="lead"></p>
+			<div class="jumbotron" style="height: 100px;">
+				<p> Add Transaction</p>
+				<form action="/transactions/" name="add_transaction" method="POST" onsubmit="return validateAddTransitionForm()">
+					<input type="number" name="sender" placeholder="sender" required></input>
+					<input type="number" name="receiver" placeholder="receiver" required></input>
+					<input type="text" name="timestamp" placeholder="hh:mm DD/MM/YYYY" required></input>
+					<input type="number" name="sum" placeholder="sum" required></input>
+					<input type="submit"></input>
+				</form>
+			</div>
+
+			<div class="jumbotron" style="height: 100px;">
+				<p> List Transactions</p>
+				<form action="/transactions/" name="list_transactions" method="GET" onsubmit="return validateListTransitionForm()">
+					<input type="number" name="user" placeholder="user" required></input>
+					<input type="text" name="day" placeholder="day: DD/MM/YYYY" required></input>
+					<input type="number" name="threshold" placeholder="threshold" required></input>
+					<input type="submit"></input>
+				</form>
+			</div>
+
+			<div class="jumbotron" style="height: 100px;">
+				<p> Balance</p>
+				<form action="/balance/" name="balance_user" method="GET" onsubmit="return validateBalanceForm()">
+					<input type="number" name="user" placeholder="user" required></input>
+					<input type="text" name="since" placeholder="since: DD/MM/YYYY" required></input>
+					<input type="text" name="until" placeholder="until: DD/MM/YYYY" required></input>
+					<input type="submit"></input>
+				</form>
+			</div>
+		</div>
+
+		<footer class="footer">
+			<p>&copy; Hootsuite Backend Internship</p>
+		</footer>
+
+	</div>
+
+	<h4>List of all transactions in which the user {{ user }} was involved in {{ day }} with threshold {{ threshold }}:</h4>
+	<table>
+		<tr>
+			<th>Sender</th>
+			<th>Receiver</th>
+			<th>Timestamp</th>
+			<th>Sum</th>
+		</tr>
+		{% for item in items %}
+		<tr>
+			<td>{{ item.sender }}</td>
+			<td>{{ item.receiver }}</td>
+			<td>{{ item.timestamp }}</td>
+			<td>{{ item.sum }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+
+</body>
+
+</html>
