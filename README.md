@@ -2,7 +2,7 @@
 
 ## Hootsuite Backend Internship
 
-Tehnologiile folosite pentru dezvoltarea aplicatiei sunt:
+#### Tehnologiile folosite pentru dezvoltarea aplicatiei sunt:
 	⋅⋅* Python 2.7.12
 	⋅⋅* Flask 0.12.1
 	⋅⋅* pymongo 3.4.3
