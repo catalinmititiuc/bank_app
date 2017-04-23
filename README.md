@@ -79,6 +79,8 @@ Daca campul timestamp este completat gresit sau este introdusa o data incorecta 
 
 Am ales sa folosesc pentru timestamp formatul ```hh:mm DD/MM/YYYY```, iar pentru day, since si until formatul ```DD/MM/YYYY```. Am considerat ca este mai usor de urmarit daca datele se vor citi asa, desi in spate le retin ca UNIX timestamps. In interfata cu utilizatorul fac teste ca datele sa fie valide si toate campurile unui form sa fie completate. Titlul ```Server API``` functioneaza ca un home button ca atunci cand se citeste transactions.html sau balance.html sa se revina la pagina initiala fara a modifica url-ul din browser.
 
+Codul nu este comentat, nu prezinta lucruri complicate, el urmeaza un flux normal si intuitiv de inteles.
+
 ### Bonus
 Am folosit indexes pentru interogari, insa nu am reusit sa testez eficienta lor, ```.explain()['executionStats']``` nu intorcea campurile relevante.
 
